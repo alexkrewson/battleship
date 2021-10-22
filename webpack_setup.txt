@@ -11,8 +11,6 @@ git push -u origin main
 
 npm init
 npm install webpack webpack-cli --save-dev
-add node_modules to .gitignore
-copy files from template
 npm install --save-dev css-loader
 npm install --save-dev style-loader
 npm install sass-loader sass webpack --save-dev
@@ -24,4 +22,4 @@ npm run test
 npx webpack --watch
 
 
-npm install --dev identity-obj-proxy ???
+
