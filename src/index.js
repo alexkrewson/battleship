@@ -1,17 +1,51 @@
-import { index2Check } from './index2'
-import { createShip } from './ship'
 
-const sum = require('./sum');
+import { createShip } from './ship'
+import { createGameBoard } from './gameBoard'
+
 import "./style.scss";
 
 console.log('index.js works')
 
-index2Check()
 
 
-const firstShip = createShip('HMS Cucumber', 4, false, false);
-console.log(firstShip)
 
+const firstShip = createShip('HMS Cucumber', 5);
+const secondShip = createShip('HMS Potato', 5);
+// console.log(secondShip)
+
+const firstGameBoard = createGameBoard(firstShip, secondShip)
+
+let hitCoordinates = '1,1'
+let hitShip = firstGameBoard.receiveAttack(hitCoordinates);
+
+if (hitShip != 'miss') {
+    hitShip.hit(hitCoordinates)
+}
+// console.log(firstShip.isSunk())
+
+hitCoordinates = '1,2'
+hitShip = firstGameBoard.receiveAttack(hitCoordinates);
+
+if (hitShip != 'miss') {
+    hitShip.hit(hitCoordinates)
+}
+// console.log(firstShip.isSunk())
+
+hitCoordinates = '1,3'
+hitShip = firstGameBoard.receiveAttack(hitCoordinates);
+
+if (hitShip != 'miss') {
+    hitShip.hit(hitCoordinates)
+}
+console.log(firstShip.isSunk())
+
+hitCoordinates = '1,4'
+hitShip = firstGameBoard.receiveAttack(hitCoordinates);
+
+if (hitShip != 'miss') {
+    hitShip.hit(hitCoordinates)
+}
+console.log(firstShip.isSunk())
 // const hitMessage = firstShip.hit(true)
 
 // function testThis(value) {

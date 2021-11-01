@@ -1,10 +1,11 @@
 
 
-function createShip(name, loa, damage, sunk) {
-    console.log('ship.js factory function works')
-
+function createShip(name, loa) {
+    // console.log('ship.js factory function works')
+    let damage = [];
+    let sunk = false
     function hit(location) {
-
+        // console.log(this.damage)
         this.damage.push(location);
 
         this.damage.sort(function (a, b) {
@@ -12,12 +13,15 @@ function createShip(name, loa, damage, sunk) {
                 return -1;
             return 1;
         });
-        console.log(this.damage)
+        // console.log(this.damage)
 
         return this.damage
     };
 
     function isSunk() {
+        console.log(this.damage.length)
+        console.log(this.loa)
+
         if (this.damage.length == this.loa) {
             return true;
         } else {
@@ -29,7 +33,6 @@ function createShip(name, loa, damage, sunk) {
         name,
         loa,
         damage,
-        sunk,
         hit,
         isSunk
     };
