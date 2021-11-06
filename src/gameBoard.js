@@ -1,29 +1,57 @@
-function createGameBoard(ship1, ship2) {
+import { createShip } from './ship'
+
+
+function createGameBoard() {
     // console.log('game.js factory function works')
+    const shipArray = [];
 
-    
 
-    function receiveAttack(coordinates) {
+    function placeShip(name, stern, bow) {
+        // console.log('placeShip is called')
+        const newShip = createShip(name, stern, bow);
+        // console.log(newShip)
+        shipArray.push(newShip)
+        return newShip
 
-        // takes a pair of coordinates, determines whether or not the attack hit a ship and 
-        // then sends the ‘hit’ function to the correct ship, or records the coordinates of 
-        // the missed shot
+    }
 
-        const ship1Coordinates = ['1,1','1,2','1,3','1,4'];
-        const ship2Coordinates = ['2,1','2,2','2,3','2,4'];
 
-        if (ship1Coordinates.includes(coordinates)) {
-            return ship1
-        } else {
-            return 'miss'
+    function receiveAttack(hitCoordinates) {
+
+        let hit = false
+
+        for (var i = 0; i < shipArray.length; i++) {
+            // console.log('i')
+            // console.log(i)
+
+            // console.log('shipArray')
+            // console.log(shipArray)
+            let shipCoordinates = shipArray[i].coordinates
+
+            for (var j = 0; j < shipCoordinates.length; j++) {
+
+                if (shipCoordinates[j].toString() == hitCoordinates.toString()) {
+
+                    console.log('hit')
+                    hit = shipArray[i]
+                    // return shipArray[i]
+
+                }
+            }
         }
 
-
-        // console.log(ship1)
-        // console.log(ship2)
+      return hit
 
 
-        
+
+
+
+
+        // // console.log(ship1)
+        // // console.log(ship2)
+
+
+
 
     };
 
@@ -32,6 +60,8 @@ function createGameBoard(ship1, ship2) {
 
     return {
         receiveAttack,
+        placeShip,
+        shipArray,
         existence
     };
 
