@@ -32,7 +32,7 @@ function createShip(name, stern, bow) {
   
 
     if (shipX1 == shipX2) {
-        console.log('vertical ship')
+        // console.log('vertical ship')
         // vertical ship
         loa = shipY2 - shipY1 + 1
         for (var i = 0; i < loa; i++) {
@@ -47,7 +47,7 @@ function createShip(name, stern, bow) {
         // console.log(coordinates)
     } else {
         // horizontal ship
-        console.log('horizontal ship')
+        // console.log('horizontal ship')
 
         // console.log('horizontal ship')
         loa = shipX2 - shipX1 + 1
@@ -64,12 +64,13 @@ function createShip(name, stern, bow) {
 
     }
 
-console.log(coordinates)
+// console.log(coordinates)
 
     let damage = [];
     let sunk = false
+
     function hit(location) {
-        // console.log(this.damage)
+        console.log(this.name + ' getting hit')
         this.damage.push(location);
 
         this.damage.sort(function (a, b) {

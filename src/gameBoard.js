@@ -17,30 +17,34 @@ function createGameBoard() {
 
 
     function receiveAttack(hitCoordinates) {
-
-        let hit = false
+        // let hitCoordinates = target.id
+        let hitResult = hitCoordinates
+        console.log('recieving attack')
+        // console.log(shipArray)
 
         for (var i = 0; i < shipArray.length; i++) {
             // console.log('i')
             // console.log(i)
 
-            // console.log('shipArray')
-            // console.log(shipArray)
             let shipCoordinates = shipArray[i].coordinates
 
             for (var j = 0; j < shipCoordinates.length; j++) {
 
                 if (shipCoordinates[j].toString() == hitCoordinates.toString()) {
+                    console.log('hit ship before hit')
+                    console.log(shipArray[i])
+                    hitResult = 'hit';
+                    shipArray[i].hit(hitCoordinates);
 
-                    console.log('hit')
-                    hit = shipArray[i]
+                    console.log('hit ship after hit')
+                    console.log(shipArray[i])
                     // return shipArray[i]
 
-                }
+                } 
             }
         }
 
-      return hit
+      return hitResult
 
 
 
