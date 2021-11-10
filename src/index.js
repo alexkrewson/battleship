@@ -1,97 +1,54 @@
-import { createGameBoard, placeShip } from './gameBoard'
-import { domThing, createGrid, displayShip, displayHit } from './domStuff'
+import { createGameBoard, createPlayer, placeShip } from './gameBoard'
+import { domThing, createGrid, displayShip, displayHit, displayHumanBoard, hideHumanBoard, removeGrid } from './domStuff'
 import "./style.scss";
-let activeGameBoard = []
+let activeGameBoard = {};
+let humanGameBoard = {};
+let computerGameBoard = {};
 
 
-createGrid()
-const firstGameBoard = createGameBoard()
-const firstShip = firstGameBoard.placeShip('HMS Cucumber', [1, 1], [1, 3])
-const secondShip = firstGameBoard.placeShip('HMS Potato', [4, 4], [7, 4])
+function playerSetup() {
+    const newPlayer = createPlayer('Tilly');
+    humanGameBoard = createGameBoard(newPlayer.name);
+    const humanShip1 = humanGameBoard.placeShip('HMS Cucumber', [1, 1], [1, 3]);
+    const humanShip2 = humanGameBoard.placeShip('HMS Potato', [4, 4], [7, 4]);
 
-activeGameBoard = firstGameBoard
-console.log('firstShip')
-console.log(firstShip)
-console.log('secondShip')
-console.log(secondShip)
-
-
-
-
-// displayShip(firstShip)
-// displayShip(secondShip)
-// displayHit(firstShip)
-// displayHit(secondShip)
-
-
-// console.log('firstShip.damage before attack')
-// console.log(firstShip.damage)
+}
 
 
 
-// let hitCoordinates = [4,1]
-// let hitShip = firstGameBoard.receiveAttack(hitCoordinates);
-// console.log('hit result: ' + hitShip)
+function AISetup() {
+    const newPlayer = createPlayer('COMPUTER');
+    computerGameBoard = createGameBoard(newPlayer.name);
+    const computerShip1 = computerGameBoard.placeShip('HMS Transistor', [1, 1], [1, 4]);
+    const computerShip12 = computerGameBoard.placeShip('HMS Electron', [4, 2], [7, 2]);
+}
+
+function gameStart() {
+
+    // request player setup
+    playerSetup()
+
+    // AI setup
+    AISetup()
+
+    // board setup
+    render()
+}
+
+
+function render() {
+    removeGrid()
+    createGrid()
 
 
 
+}
 
-// console.log('firstShip.damage after attack')
-// console.log(firstShip.damage)
-
-// if (hitShip != 'miss') {
-//     hitShip.hit(hitCoordinates)
-// }
-
-// console.log('ship damage')
-// console.log(secondShip.damage)
-// console.log('ship sunk yet?' )
-// console.log(secondShip.isSunk())
-
-// hitCoordinates = [1,3]
-// hitShip = firstGameBoard.receiveAttack(hitCoordinates);
-
-// if (hitShip != 'miss') {
-//     hitShip.hit(hitCoordinates)
-// }
-// console.log('ship damage')
-// console.log(secondShip.damage)
-// console.log('ship sunk yet?' )
-// console.log(secondShip.isSunk())
-
-// hitCoordinates = '1,3'
-// hitShip = firstGameBoard.receiveAttack(hitCoordinates);
-
-// if (hitShip != 'miss') {
-//     hitShip.hit(hitCoordinates)
-// }
-// console.log('ship damage')
-// console.log(firstShip.damage)
-// console.log('ship sunk yet?' )
-// console.log(firstShip.isSunk())
-
-// hitCoordinates = '1,4'
-// hitShip = firstGameBoard.receiveAttack(hitCoordinates);
-
-// if (hitShip != 'miss') {
-//     hitShip.hit(hitCoordinates)
-// }
-// console.log('ship damage')
-// console.log(firstShip.damage)
-// console.log('ship sunk yet?' )
-// console.log(firstShip.isSunk())// const hitMessage = firstShip.hit(true)
+gameStart()
 
 
-// hitCoordinates = '1,5'
-// hitShip = firstGameBoard.receiveAttack(hitCoordinates);
-
-// if (hitShip != 'miss') {
-//     hitShip.hit(hitCoordinates)
-// }
-// console.log('ship damage')
-// console.log(firstShip.damage)
-// console.log('ship sunk yet?' )
-// console.log(firstShip.isSunk())// const hitMessage = firstShip.hit(true)
+// activeGameBoard = humanGameBoard;
 
 
-export { activeGameBoard }
+
+export { humanGameBoard, computerGameBoard, render }

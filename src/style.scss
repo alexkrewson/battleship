@@ -1,16 +1,18 @@
-// $body-color: green;
-
-// body {
-//   color: $body-color;
-// }
-
 #content {
+  // display: flex;
+}
+
+#human-content {
+
+  float: left;
+
   display: grid;
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(10, 1fr);
   height: 500px;
   width: 500px;
   background-color: blue;
+
 
   .square {
     border-style: solid;
@@ -24,10 +26,62 @@
     background-color: red;
   }
 
-  .missed {
+  .missed-square {
     background-color: black;
   }
 
 }
 
+#computer-content {
 
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  height: 500px;
+  width: 500px;
+  background-color: cornflowerblue;
+
+
+  float: right;
+  
+  .square {
+    border-style: solid;
+  }
+
+  .ship-square {
+    background-color: grey;
+  }
+
+  .damaged-ship-square {
+    background-color: red;
+  }
+
+  .missed-square {
+    background-color: black;
+  }
+
+}
+
+.hidden {
+  display: none;
+}
+
+#human-content.displayed {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  height: 500px;
+  width: 500px;
+  background-color: blue;
+
+}
+
+#computer-content.displayed {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  height: 500px;
+  width: 500px;
+  background-color: cornflowerblue;
+
+}

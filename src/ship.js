@@ -1,6 +1,6 @@
 
 
-function createShip(name, stern, bow) {
+function createShip(name, stern, bow, owner) {
     // console.log('ship.js factory function works')
 
 
@@ -78,7 +78,7 @@ function createShip(name, stern, bow) {
                 return -1;
             return 1;
         });
-        // console.log(this.damage)
+        console.log(this.name + ' damage ' + this.damage)
 
         return this.damage
     };
@@ -101,6 +101,7 @@ function createShip(name, stern, bow) {
         loa,
         damage,
         coordinates,
+        owner,
         hit,
         isSunk
     };
