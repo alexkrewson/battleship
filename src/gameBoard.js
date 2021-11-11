@@ -36,15 +36,16 @@ function createGameBoard(name) {
 
         let pastMiss = this.checkForPastMisses(hitCoordinates)
         let pastHit = this.checkForPastHits(hitCoordinates)
-        console.log('pastMiss: ' + pastMiss)
+        let wrongBoard = this.checkForWrongBoard(hitCoordinates)
+        // console.log('pastMiss: ' + pastMiss)
 
-        console.log('pastHit: ' + pastHit)
+        // console.log('pastHit: ' + pastHit)
 
-        console.log('hitCoordinates: ' + hitCoordinates)
+        // console.log('hitCoordinates: ' + hitCoordinates)
 
 
 
-        if (pastHit || pastMiss) {
+        if (pastHit || pastMiss || wrongBoard) {
             console.log('invalid torpedo target')
             hitResult = false
         } else {
@@ -93,6 +94,30 @@ function createGameBoard(name) {
         return hitResult
     };
 
+    function checkForWrongBoard(theseHitCoordinates) {
+
+        let arr = theseHitCoordinates.toString().split('');
+        let hitBoardSuffix = theseHitCoordinates.slice(-1);
+        let shipSquareIdSuffix = ''
+
+        console.log("hitBoardSuffix: " + hitBoardSuffix)
+
+        if (this.owner == 'COMPUTER') {
+            shipSquareIdSuffix = 'c'
+        } else {
+            shipSquareIdSuffix = 'h'
+        }
+
+
+
+        if (hitBoardSuffix == shipSquareIdSuffix) {
+            return false;
+        } else {
+            console.log('Friendly fire!!!')
+            return true;
+        };
+    }
+
     function checkForPastMisses(theseHitCoordinates) {
         // console.log('checking for past misses')
         // console.log('this.owner: ' + this.owner)
@@ -130,7 +155,7 @@ function createGameBoard(name) {
                 sunkShips++
             }
         }
-        console.log('sunkShips: ' + sunkShips)
+        // console.log('sunkShips: ' + sunkShips)
 
         if (sunkShips == shipArray.length) {
             console.log('all is lost')
@@ -149,6 +174,7 @@ function createGameBoard(name) {
         checkForLoss,
         checkForPastMisses,
         checkForPastHits,
+        checkForWrongBoard,
         shipArray,
         existence,
         // turn,

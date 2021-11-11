@@ -1,7 +1,7 @@
 
 import { squareClickIndex, humanGameBoard, computerGameBoard, render } from './index'
 
-import { checkForPastMisses, checkForPastHits } from './gameBoard'
+import { checkForPastMisses, checkForPastHits, placeShip } from './gameBoard'
 
 
 function domThing() {
@@ -48,35 +48,20 @@ async function computerTakesTurn() {
     let counter = 0;
 
     while (poorChoice && counter < 100) {
-        let hitX = Math.floor(Math.random() * 10) + 1; 
-        let hitY = Math.floor(Math.random() * 10) + 1; 
+        let hitX = Math.floor(Math.random() * 10) + 1;
+        let hitY = Math.floor(Math.random() * 10) + 1;
         hitCoordinates = [hitX, hitY] + 'h';
-        // console.log('hitCoordinates: ' + hitCoordinates)
-
-        // console.log('humanGameBoard.checkForPastMisses(hitCoordinates): ' + humanGameBoard.checkForPastMisses(hitCoordinates))
-
-        // console.log('humanGameBoard.checkForPastHits(hitCoordinates): ' + humanGameBoard.checkForPastHits(hitCoordinates))
 
         if (humanGameBoard.checkForPastMisses(hitCoordinates) == false && humanGameBoard.checkForPastHits(hitCoordinates) == false) {
             poorChoice = false;
         }
 
-         
+
 
         counter++
     }
-    
-
-
-
-
-
-
-
-
 
     humanGameBoard.receiveAttack(hitCoordinates)
-    // console.log(humanGameBoard.shipArray[0].name + ' Damage: ' + humanGameBoard.shipArray[0].damage.length)
 
     render()
 
@@ -91,7 +76,92 @@ function pause(id) {
 
 
 
+function renderPartialBuild() {
 
+    removeGrid()
+    createShipBuildingGrid()
+
+}
+
+let partialShip = [];
+
+function squareBuildShip(clickedSquare) {
+    let builtSquareId = clickedSquare.target.id;
+    console.log('builtSquare: ' + builtSquareId)
+    let buildShipId = builtSquareId.slice(0, builtSquareId.length - 1)
+    console.log('buildShipId: ' + buildShipId)
+    // let squareDiv = document.getElementById(builtSquareId)
+    partialShip.push(buildShipId);
+
+    let partialSquare = document.getElementById(builtSquareId)
+    partialSquare.classList.add('partial-ship')
+
+
+
+
+
+}
+
+
+function saveShip() {
+    console.log('partialShip[0]: ' + partialShip[0])
+    console.log('partialShip[1]: ' + partialShip[1])
+    let nameInputElement = document.getElementById('name-input')
+    let shipName = nameInputElement.value
+
+    const humanShip = humanGameBoard.placeShip(shipName, partialShip[0], partialShip[1]);
+    console.log(humanShip)
+    partialShip = [];
+    removeGrid()
+    createShipBuildingGrid()
+    humanGameBoard.shipArray.forEach(displayShip)
+
+}
+
+function saveAllShips() {
+
+}
+
+
+
+
+function createShipBuildingGrid() {
+    let contentDiv = document.getElementById('content');
+    let humanDiv = document.createElement('div');
+    humanDiv.id = 'human-content';
+    contentDiv.appendChild(humanDiv);
+
+
+    for (var i = 10; i > 0; i--) {
+        for (var j = 1; j < 11; j++) {
+            let squareDiv = document.createElement('div')
+            squareDiv.id = j + ',' + i + 'h'
+            squareDiv.classList.add('square')
+            squareDiv.addEventListener('click', squareBuildShip);
+            humanDiv.appendChild(squareDiv)
+        }
+    }
+
+    let btn = document.createElement('button');
+    btn.addEventListener('click', saveShip)
+    let nameInput = document.createElement('input')
+    nameInput.id = 'name-input'
+    let btn2 = document.createElement('button');
+    btn2.addEventListener('click', render)
+
+    // let contentDiv = document.getElementById('content')
+    contentDiv.appendChild(btn)
+    contentDiv.appendChild(nameInput)
+    contentDiv.appendChild(btn2)
+
+
+    // humanGameBoard.shipArray.forEach(displayShip)
+
+
+
+
+
+}
 
 
 
@@ -215,8 +285,14 @@ function displayShip(shipToDisplay) {
 
 
     for (var i = 0; i < shipToDisplay.coordinates.length; i++) {
-        // console.log('shipToDisplay.coordinates: ' + shipToDisplay.coordinates[i])
+        console.log('shipToDisplay.coordinates: ' + shipToDisplay.coordinates[i])
+
+
         let shipSquare = document.getElementById(shipToDisplay.coordinates[i] + shipSquareIdSuffix);
+        if (!shipSquare) {
+            let shipSquare = document.getElementById(shipToDisplay.coordinates[i]);
+        }
+        // shipSquare = document.getElementById(shipToDisplay.coordinates[i]);
         shipSquare.classList.add('ship-square')
     }
 
@@ -263,4 +339,4 @@ function hideHumanBoard() {
     board.classList.remove('hidden')
 }
 
-export { domThing, createGrid, displayShip, displayHits as displayHit, squareCick, displayHumanBoard, hideHumanBoard, removeGrid }
+export { domThing, createGrid, displayShip, displayHits as displayHit, squareCick, displayHumanBoard, hideHumanBoard, removeGrid, createShipBuildingGrid }

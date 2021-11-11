@@ -1,30 +1,33 @@
 
 
 function createShip(name, stern, bow, owner) {
-    // console.log('ship.js factory function works')
+    console.log('ship.js factory function works')
 
 
-    //turn stern coordinates into two integers
-    //turn bow coordinates into two integers
+console.log('stern.split(',')[0]: ' + stern.split(',')[0])
+    let shipX1 = Number(stern.split(',')[0]);
+    let shipX2 = Number(bow.split(',')[0]);
 
+    let shipY1 = Number(stern.split(',')[1]);
+    let shipY2 = Number(bow.split(',')[1]);
+    let tempValue = 0
 
+    if (shipX1 > shipX2) {
+        tempValue = shipX2
+        shipX2 = shipX1;
+        shipX1 = tempValue
+    }
 
-    let shipX1 = stern[0];
-    let shipX2 = bow[0];
+    if (shipY1 > shipY2) {
+        tempValue = shipY2
+        shipY2 = shipY1;
+        shipY1 = tempValue
+    }
 
-    // console.log('shipX1')
-    // console.log(shipX1)
-    // console.log('shipX2')
-    // console.log(shipX2)
-
-    let shipY1 = stern[1];
-    let shipY2 = bow[1];
-
-    // console.log('shipY1')
-    // console.log(shipY1)
-    // console.log('shipY2')
-    // console.log(shipY2)
-
+    console.log('shipX1: ' + shipX1)
+    console.log('shipX2: ' + shipX2)
+    console.log('shipY1: ' + shipY1)
+    console.log('shipY2: ' + shipY2)
 
     let loa = 0;
 
@@ -32,7 +35,7 @@ function createShip(name, stern, bow, owner) {
   
 
     if (shipX1 == shipX2) {
-        // console.log('vertical ship')
+        console.log('vertical ship')
         // vertical ship
         loa = shipY2 - shipY1 + 1
         for (var i = 0; i < loa; i++) {
@@ -47,9 +50,8 @@ function createShip(name, stern, bow, owner) {
         // console.log(coordinates)
     } else {
         // horizontal ship
-        // console.log('horizontal ship')
+        console.log('horizontal ship')
 
-        // console.log('horizontal ship')
         loa = shipX2 - shipX1 + 1
         for (var i = 0; i < loa; i++) {
             coordinates[i] = [shipX1 + i, shipY1]
@@ -95,6 +97,10 @@ function createShip(name, stern, bow, owner) {
             return false;
         }
     }
+
+    console.log('stern: ' + stern)
+
+    console.log('bow: ' + bow)
 
     return {
         name,
